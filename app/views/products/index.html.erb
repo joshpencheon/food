@@ -1,0 +1,7 @@
+<table>
+  <tr><th>Name</th><th>UPC</th></tr>
+  
+  <% for product in @products do %>
+    <tr><td><%= product.name %></td><td><%= product.upc %></td></tr>
+  <% end %>
+</table>
