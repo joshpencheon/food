@@ -1,0 +1,25 @@
+<%= render :partial => 'basket_header', :object => @basket %>
+
+
+<%= form_for [@basket, Purchase.new(:basket => @basket)], :html => { :autocomplete => 'off' } do |f| %>
+  
+    <table class="new-product-wrapper">
+      <tr>
+        <td class="product-wrapper">
+          <div id="product-cassette">
+            <%= fields_for :product do |product_f| %>
+            <%= product_f.text_field :name, :placeholder => 'Product Name' %>
+            <%= product_f.text_field :ean, :placeholder => 'Product EAN', :tabindex => -1 %>
+            <% end %>
+          </div>    
+        </td>
+        <td><%= f.text_field :quantity, :placeholder => 'No.' %></td>
+        <td><%= f.text_field :unit_price, :placeholder => '£ (each)' %>
+            <%= f.hidden_field :basket_id %></td>
+      </tr>
+    </table>
+      
+<% end %>
+
+<div id="basket"><%= render @basket %></div>
+

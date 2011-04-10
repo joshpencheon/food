@@ -1,15 +1,15 @@
-<h1>Add a product:</h1>
+<h1>New Product</h1>
 
-  <% form_for @product do |f| -%>
-    <p>
-      <%= f.label :name, "Product Name" %>
-      <%= f.text_field :name %>
-    </p>
-    
-    <p>
-      <%= f.label :upc, "Universal Product Code (UPC)" %>
-      <%= f.text_field :upc %>
-    </p>
-    
-    <%= f.submit "Create", :disable_with => 'Creating...' %>
-  <% end -%>
+<% form_for @product do |f| -%>
+  <p>
+    <%= f.label :name, "Product Name" %>
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :upc, "Universal Product Code (UPC)" %>
+    <%= f.text_field :upc %>
+  </p>
+  
+  <%= f.submit "Create", :disable_with => 'Creating...' %>
+<% end -%>

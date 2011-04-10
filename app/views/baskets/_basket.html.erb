@@ -1,0 +1,22 @@
+<table id="existing_purchases" border="0" cellspacing="0">
+  <% basket.purchases.reject(&:new_record?).each do |purchase| %>
+    <tr class="<%= cycle('odd','even') %>">
+      <td class="product-name"><%= purchase.product.name %></td>
+      <td>-</td>
+      <td class="purchase-quantity"><%= purchase.quantity %></td>
+      <td>@ £</td> 
+      <td class="purchase-unit-price"><%= purchase.unit_price %></td>      
+      <td>= £</td>
+      <td><%= purchase.cost %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><strong style="border-top: 3px solid black">£<%= basket.cost %></strong></td>
+  </tr>
+</table>

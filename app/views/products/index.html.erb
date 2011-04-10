@@ -1,7 +1,7 @@
 <table>
-  <tr><th>Name</th><th>UPC</th></tr>
+  <tr><th>Name</th><th>EAN</th></tr>
   
   <% for product in @products do %>
-    <tr><td><%= product.name %></td><td><%= product.upc %></td></tr>
+    <tr><td><%= link_to product.name, product %></td><td><%= product.ean %></td></tr>
   <% end %>
 </table>

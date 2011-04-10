@@ -1,0 +1,33 @@
+ul.jq-ui-autocomplete {
+    position: absolute;
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    margin: 0px;
+    padding: 0;
+    list-style: none;
+    font: normal 2em Verdana, Arial, sans-serif;
+    color: #333;
+}
+ul.jq-ui-autocomplete li { 
+  display: block; 
+  padding: .3em .5em .3em .5em; 
+  overflow: hidden;
+  width: 100%;
+}
+
+ul.jq-ui-autocomplete li .grey { 
+	padding-right: 1em;
+	float: right;
+	font-family: 'Courier New';
+	font-size: 0.6em;
+}
+
+ul.jq-ui-autocomplete li.active { 
+  background-color: #3875d7; 
+  color: #fff;
+}
+
+ul.jq-ui-autocomplete li.active .grey { 
+  color: #eee;
+}

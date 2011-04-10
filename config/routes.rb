@@ -1,12 +1,18 @@
 Food::Application.routes.draw do
-  get "purchases/index"
+  get "purchases/create"
 
-  get "purchases/new"
+  get "baskets/index"
 
-  get "purchases/show"
+  get "baskets/new"
 
-  get "purchases/edit"
+  get "baskets/edit"
 
+  get "baskets/show"
+
+  resources :baskets do
+    resources :purchases
+  end
+  
   resources :products
 
   # The priority is based upon order of creation:
@@ -59,6 +65,8 @@ Food::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
+  
+  root :to => "products#index"
 
   # See how all your routes lay out with "rake routes"
 

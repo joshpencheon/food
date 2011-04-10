@@ -1,0 +1,6 @@
+<% for basket in @baskets do %>
+
+  <%= render :partial => "basket_header", :object => basket %>
+  <%= link_to "go...", basket %>
+  <hr />
+<% end %>

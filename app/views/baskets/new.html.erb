@@ -1,0 +1,10 @@
+<h1>New Basket:</h1>
+
+<% form_for @basket do |f| -%>
+  <p>
+    <%= f.label :shop_date_string, "Shop Date" %>
+    <%= f.text_field :shop_date_string %>
+  </p>
+  
+  <%= f.submit "Create", :disable_with => 'Creating...' %>
+<% end -%>

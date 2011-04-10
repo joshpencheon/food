@@ -1,0 +1,7 @@
+<%= link_to "Food App", root_url %>
+
+<div style="float:left;">
+  <% flash.each do |level, message| %>
+    <span class="<%= level %>"><%= message %></span>
+  <% end %>
+</div>

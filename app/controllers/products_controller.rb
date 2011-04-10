@@ -2,8 +2,16 @@ class ProductsController < ApplicationController
   respond_to :html, :json
     
   def index
-    @products = Product.all
-    respond_with(@products)
+    @products = if params[:query].blank?
+      Product.includes(:purchases).all
+    else
+      Product.limit(10).find_for_autocomplete(params[:query])
+    end
+    
+    respond_to do |format|
+      format.html
+      format.json { render :json => @products }
+    end
   end
   
   def new
@@ -22,6 +30,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @product = Product.find(params[:id])
   end
 
   def edit

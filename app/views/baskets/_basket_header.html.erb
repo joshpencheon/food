@@ -1,0 +1,14 @@
+<h1>
+  <%= basket_header.shop.name %> 
+  
+  <span class="grey">
+    <%= basket_header.shop_date_string %>
+  </span>
+  - 
+  <%= pluralize(basket_header.products.length, 'product') %>
+
+  <span class="grey">
+    £<%= basket_header.cost %>
+  </span>
+
+</h1>
