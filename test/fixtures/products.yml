@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  upc: MyString
+  ean: MyString
 
 two:
   name: MyString
-  upc: MyString
+  ean: MyString

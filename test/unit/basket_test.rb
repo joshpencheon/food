@@ -1,8 +1,34 @@
 require 'test_helper'
 
 class BasketTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  test "factory should be valid" do
+    assert build(:basket).valid?
+  end
+  
+  test "basket total cost should be equal to sum of purchase costs" do
+    basket = build(:basket_with_purchases)
+    purchases = basket.purchases
+    
+    assert_equal purchases.map(&:cost).sum, basket.cost
+  end
+  
+  test "should parse shop date correctly" do
+    basket = build(:basket, :shop_date => '12/12/2010')
+    
+    assert_equal DateTime.new(2010, 12, 12), basket.shop_date
+    assert basket.valid?
+  end
+  
+  test "after validation, should have default shop_date of today" do
+    basket = build(:basket)
+    basket.valid?
+    
+    assert_equal Date.today, basket.shop_date
+  end
+  
+  test "should be ignore rubbish shop_date" do
+    basket = build(:basket, :shop_date => 'fubar')
+    
+    assert basket.shop_date.nil?
   end
 end

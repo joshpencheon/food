@@ -12,7 +12,7 @@ class Product < ActiveRecord::Base
   has_many :baskets, :through => :purchases
   
   def self.find_for_autocomplete(query)
-    where('upc like ? or name like ?', "#{query}%", "%#{query}%")
+    where('ean like ? or name like ?', "#{query}%", "%#{query}%")
   end
   
   def self.find_or_create_from_params(params)

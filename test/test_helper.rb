@@ -1,8 +1,12 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'factory_girl'
+
+FactoryGirl.find_definitions
 
 class ActiveSupport::TestCase
+  include Factory::Syntax::Methods
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests

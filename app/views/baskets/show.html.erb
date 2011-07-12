@@ -3,6 +3,8 @@
 
 <%= form_for [@basket, Purchase.new(:basket => @basket)], :html => { :autocomplete => 'off' } do |f| %>
   
+    <span class="progress" style="display:none;"></span>
+  
     <table class="new-product-wrapper">
       <tr>
         <td class="product-wrapper">
@@ -16,6 +18,7 @@
         <td><%= f.text_field :quantity, :placeholder => 'No.' %></td>
         <td><%= f.text_field :unit_price, :placeholder => '£ (each)' %>
             <%= f.hidden_field :basket_id %></td>
+            
       </tr>
     </table>
       

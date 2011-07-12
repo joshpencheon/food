@@ -7,6 +7,10 @@ gem 'rails', '3.0.5'
 
 gem 'sqlite3'
 
+group :test do
+  gem 'factory_girl', :git => 'git://github.com/thoughtbot/factory_girl.git'  
+end
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

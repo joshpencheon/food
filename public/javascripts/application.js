@@ -5,6 +5,8 @@ var productAnim = function() {
 	if (!editingNewProduct) {
 		$('#product-cassette').animate({fontSize:'-=50%'}, 'fast');
 		$('#product_name, #product_ean').animate({width: '33em'}, 'fast');
+		
+		$('#new_purchase').addClass('new-product', 'fast');
 	
 		$('#product_ean').attr('tabindex', '');
 	};
@@ -14,6 +16,8 @@ var productAnim2 = function() {
 	if (editingNewProduct) {
 		$('#product-cassette').animate({fontSize:'+=50%'}, 'fast');
 		$('#product_name, #product_ean').animate({width: '16em'}, 'fast');
+
+		$('#new_purchase').removeClass('new-product', 'fast');
 
 		$('#product_ean').attr('tabindex', -1);
 	};
@@ -26,7 +30,8 @@ $(document).ready(function (){
 		
 	$.fn.remote = function(callback) {	
 		return this.each(function() {
-			var form = $(this);
+			var form = $(this),
+				spinner = form.find('.progress');
 			
 			form.find('input').keydown(function(e) {
 				if (e.which == 13) { form.submit(); }
@@ -34,7 +39,6 @@ $(document).ready(function (){
 			
 			form.submit(function(e) {
 				$.ajax({
-					// url: form.attr('action'),
 					type: 'post',
 					url: '/baskets/4/purchases',
 					data: form.serialize(),
@@ -47,6 +51,12 @@ $(document).ready(function (){
 				});
 				return false;
 			});
+			
+			$(document).ajaxStart(function(){ 
+			  if (!spinner.is(':visible')) { spinner.fadeIn('slow'); }
+			}).ajaxStop(function(){ 
+			  if (spinner.is(':visible')) { spinner.fadeOut('slow'); }
+			});
 		});
 	};
 		
@@ -54,7 +64,9 @@ $(document).ready(function (){
 		
 	var createNewProduct = function(input) { productAnim() };
 	
-	$('#product_name').autocomplete({
+	$('#product_name').bind('cancelled.autocomplete', function() {
+		productAnim(); // Hit ESC to make new product...
+	}).autocomplete({
 		ajax: "/products.json",
 		timeout: 200,
 		matcher: function(typed) {
