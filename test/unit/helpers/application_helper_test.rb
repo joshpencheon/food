@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
   test "format_price should fill in any trailing zeros" do
+    assert_equal '£9.90', format_price(9.9)          
     assert_equal '£10.20', format_price(10.2)
     assert_equal '£10.00', format_price(10.0)
     assert_equal '£10.00', format_price(10)
