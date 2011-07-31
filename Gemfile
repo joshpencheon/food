@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+gem 'rake', '0.8.7'
+
 gem 'rails', '3.0.5'
 
 # Bundle edge Rails instead:
@@ -8,7 +10,12 @@ gem 'rails', '3.0.5'
 gem 'sqlite3'
 
 group :test do
-  gem 'factory_girl', :git => 'git://github.com/thoughtbot/factory_girl.git'  
+  gem 'factory_girl'
+  gem 'ZenTest'
+  gem 'autotest'
+  gem 'autotest-rails'
+  gem 'autotest-growl'
+  gem 'autotest-fsevent'
 end
 
 # Use unicorn as the web server

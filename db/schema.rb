@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110712124703) do
+ActiveRecord::Schema.define(:version => 20110724144242) do
 
   create_table "baskets", :force => true do |t|
     t.datetime "created_at"
@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(:version => 20110712124703) do
 
   create_table "purchases", :force => true do |t|
     t.integer  "product_id"
-    t.integer  "unit_price"
+    t.integer  "unit_price_in_pence"
     t.integer  "quantity"
-    t.integer  "saving",     :default => 0
+    t.integer  "saving_in_pence",     :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "basket_id"

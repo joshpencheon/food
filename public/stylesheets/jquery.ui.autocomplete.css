@@ -1,5 +1,6 @@
 ul.jq-ui-autocomplete {
     position: absolute;
+	z-index: 999;
     overflow: hidden;
     background-color: #fff;
     border: 1px solid #aaa;
@@ -8,6 +9,9 @@ ul.jq-ui-autocomplete {
     list-style: none;
     font: normal 2em Verdana, Arial, sans-serif;
     color: #333;
+	text-align:left;
+	font-family: 'Courier New';
+	font-weight: bolder;
 }
 ul.jq-ui-autocomplete li { 
   display: block; 
@@ -21,6 +25,7 @@ ul.jq-ui-autocomplete li .grey {
 	float: right;
 	font-family: 'Courier New';
 	font-size: 0.6em;
+	font-weight: normal;
 }
 
 ul.jq-ui-autocomplete li.active { 

@@ -4,6 +4,10 @@ html, body {
 	font-family: arial;
 }
 
+body {
+	text-align: center;
+}
+
 input[type=text] {
 	padding: 0.6em;
 	border: none;
@@ -45,11 +49,13 @@ a:hover {
 	padding: 1em;
 	background-color: #CCC;
 	border-bottom: 1px solid #999;
-	
 	text-align: center;
 }
 
 #content {
+	width: 55em;
+	margin: 0 auto;
+	text-align: left;
 	padding: 1em;
 	border-top: 1px solid #FFF;
 }
@@ -57,18 +63,26 @@ a:hover {
 #new_purchase {
 	border-style: solid;
 	border-color: #ADA;
-	border-width: 5px 5px 0 5px;
-	border-bottom: 1px solid #ADA;
+	border-width: 5px;
 	background-color: #CFC;
 	padding: 0.5em 1em;
-	font-size: 2.5em;
+	font-size: 1.5em;
+	position: relative;
+	z-index: 2;
+}
+
+#new_purchase,
+#new_purchase input,
+#existing_purchases {
+	font-family: courier;
 }
 
 #new_purchase .progress {
 	float: right;
 	background: url('/images/green-spinner.gif') no-repeat center center;
-	width: 4em;
+	width: 3em;
 	height: 2.5em;
+	text-align: center;
 }
 
 #new_purchase.new-product {
@@ -89,19 +103,22 @@ a:hover {
 }
 
 .product-name {
-	padding: 0.2em 0.3em 0.2em 4em;
+	padding: 0.2em 0.3em;
 }
 
 #product_ean {
 	margin-top: 0.2em;
 }
 
+input[disabled] {
+	color: gray;
+}
+
 .new-product-wrapper td {
 	height: 2.3em;
-/*	background-color: black;*/
 	margin: 0 0.3em;	
 	overflow: hidden;
-	display: inline-block!important
+	display: inline-block !important;
 }
 
 .new-product-wrapper td.product-wrapper {
@@ -113,24 +130,23 @@ a:hover {
 	width: 2em;
 }
 
+.purchase-cost {
+	text-align: right;
+	padding-right: 3em;
+}
+
+.purchase-quantity {
+	text-align: right;
+	padding-left: 3em;
+}
+
 #purchase_unit_price,
 .purchase-unit-price {
 	width: 5em;
 }
 
 #existing_purchases {
-	font-size: 2em;
+	font-size: 1.5em;
 	width: 100%;
-	border-style: solid;
-	border-color: #BBB;
-	border-width: 0 5px 5px;
-	border-top: 1px solid #FFF;
-}
-
-#existing_purchases .odd {
-	background-color: #EEE;
-}
-
-#existing_purchases .even {
-	background-color: #CCC;
+	border-left: 1px solid black;
 }

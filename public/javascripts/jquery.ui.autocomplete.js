@@ -306,7 +306,6 @@
 		});
 
 		$("body").bind("activate.autocomplete", function(e) {
-			console.log('activate');
 			// Try hitting return to activate autocomplete and then hitting it again on blank input
 			// to close it.  w/o checking the active object first this input.triggerHandler() will barf.
 			if (active.length) {

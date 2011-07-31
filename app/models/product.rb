@@ -5,10 +5,10 @@ class Product < ActiveRecord::Base
   validates_uniqueness_of :name
   
   before_validation :format_ean
-  validates_length_of :ean, :is => 15, :allow_blank => true
+  validates_length_of :ean, :is => 13, :allow_blank => true
 
   
-  has_many :purchases
+  has_many :purchases, :dependent => :destroy
   has_many :baskets, :through => :purchases
   
   def self.find_for_autocomplete(query)
@@ -16,6 +16,7 @@ class Product < ActiveRecord::Base
   end
   
   def self.find_or_create_from_params(params)
+    Rails.logger.info('---- ' + params.inspect)
     existing = find_by_name(params[:name])
     if existing
       existing
@@ -35,11 +36,6 @@ class Product < ActiveRecord::Base
   private
   
   def format_ean
-    self.ean = if ean.blank?
-      nil
-    else
-      digits = ean.gsub(/[^\d]/, '')
-      sprintf('%s %s %s', digits[0,1], digits[1,6], digits[7,6])
-    end    
+    self.ean = ean.blank? ? nil : ean.to_s.gsub(/[^\d]/, '')
   end
 end

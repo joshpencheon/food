@@ -13,7 +13,7 @@ FactoryGirl.define do
   
   factory :purchase do
     quantity   1
-    unit_price 1
+    unit_price_in_pence 100
     product
   end
   

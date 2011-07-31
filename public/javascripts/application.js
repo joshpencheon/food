@@ -27,6 +27,12 @@ var productAnim2 = function() {
 
 
 $(document).ready(function (){
+	
+	$.extend($.easing, {
+		easeDotPrinter: function (x, t, b, c, d) {
+			return b + (c-b)*Math.floor(7*t/d)/7;
+		}
+	})
 		
 	$.fn.remote = function(callback) {	
 		return this.each(function() {
@@ -44,11 +50,14 @@ $(document).ready(function (){
 					data: form.serialize(),
 					dataType: 'js',
 					success: function(data) { 
-						form.find('input[type=text]').val('').blur(); 
+						form.find('input[type=text]').attr('disabled', '')
+							.val('').first().focus(); 
 						productAnim2();
 						callback(data);
 					}
 				});
+				
+				form.find('input[type=text]').attr('disabled', 'disabled');
 				return false;
 			});
 			
@@ -60,8 +69,13 @@ $(document).ready(function (){
 		});
 	};
 		
-	$('#new_purchase').remote(function(data) { $('#basket').html(data) })
-		
+	$('#new_purchase').remote(function(data) { 
+		$('#basket').html(data).css({
+			position:'relative', 
+			top: -$('#basket').find('.purchase').first().height() + 'px'
+		}).animate({top: 0}, 700, 'easeDotPrinter');
+	});
+	
 	var createNewProduct = function(input) { productAnim() };
 	
 	$('#product_name').bind('cancelled.autocomplete', function() {

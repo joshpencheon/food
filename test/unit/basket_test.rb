@@ -21,9 +21,10 @@ class BasketTest < ActiveSupport::TestCase
   
   test "after validation, should have default shop_date of today" do
     basket = build(:basket)
-    basket.valid?
     
-    assert_equal Date.today, basket.shop_date
+    assert_nil basket.shop_date
+    basket.valid?
+    assert_equal Time.now.at_midnight, basket.shop_date
   end
   
   test "should be ignore rubbish shop_date" do

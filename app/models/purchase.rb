@@ -5,39 +5,43 @@ class Purchase < ActiveRecord::Base
   default_scope :order => 'created_at desc'
   
   validates_presence_of :quantity
-  validates_presence_of :unit_price
+  validates_presence_of :unit_price_in_pence
   
   validates_numericality_of :quantity
-  validates_numericality_of :unit_price
-  validates_numericality_of :saving
+  validates_numericality_of :unit_price_in_pence
+  validates_numericality_of :saving_in_pence
     
-def save_with_other_product_check
-    other_purchases = Basket.find(basket_id).purchases - [ self ]
+  def save(*args)
+    return self.destroy if quantity < 1
     
-    if other = other_purchases.detect { |p| p.product_id == product_id && p.unit_price == unit_price }
-      
-      Rails.logger.info('@@@')
-      Rails.logger.info(other.inspect)
-      
+    other_purchases = basket.purchases - [ self ]
+    
+    if other = other_purchases.detect { |p| p.product_id == product_id && p.unit_price_in_pence == unit_price_in_pence }    
       other.quantity += quantity
       other.saving   += saving
-      other.save_without_other_product_check
+      other.save
     else
-      save_without_other_product_check
+      super
     end
   end
-  alias_method_chain :save, :other_product_check  
-  
-  def save_with_zero_quantity_check
-    if quantity < 1
-      self.destroy
-    else
-      save_without_zero_quantity_check
-    end
-  end
-  alias_method_chain :save, :zero_quantity_check
   
   def cost
     unit_price * quantity - (saving || 0)
+  end
+  
+  def unit_price
+    unit_price_in_pence ? (unit_price_in_pence.to_f / 100).round(2) : nil
+  end
+  
+  def unit_price=(price_in_pounds)
+    write_attribute(:unit_price_in_pence, (price_in_pounds.to_f.round(2) * 100).round(0).to_i)
+  end
+  
+  def saving
+    saving_in_pence ? (saving_in_pence.to_f / 100).round(2) : nil
+  end
+  
+  def saving=(saving_in_pounds)
+    write_attribute(:saving_in_pence, (saving_in_pounds.to_f.round(2) * 100).round(0).to_i)
   end
 end

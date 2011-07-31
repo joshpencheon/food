@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json { render :json => @products }
+      format.json { render :json => view_context.autocomplete_data_for(@products) }
     end
   end
   

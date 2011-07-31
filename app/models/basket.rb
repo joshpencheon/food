@@ -19,6 +19,6 @@ class Basket < ActiveRecord::Base
   private
   
   def set_shop_date
-    self.shop_date ||= Date.today
+    self.shop_date ||= Date.today.to_time
   end
 end

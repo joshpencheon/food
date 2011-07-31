@@ -1,0 +1,28 @@
+require "ZenTest"
+require "autotest/rails"
+require "autotest/growl"
+require "autotest/fsevent"
+Autotest.add_hook :initialize do |autotest|
+  %w{.git .svn .hg .DS_Store ._* vendor tmp log doc config .rvmrc Gemfile .autotest README Rakefile}.each do |exception|
+    autotest.add_exception(exception)
+  end
+  
+  autotest.add_mapping %r%^test/unit/helpers/.*rb$% do |filename, _|
+    filename
+  end
+  
+  autotest.add_mapping %r%^app/helpers/(.*)_helper.rb% do |_, m|
+    if m[1] == "application" then
+      ["test/unit/helpers/application_helper_test.rb"] + 
+        autotest.files_matching(%r%^test/(views|functional)/.*_test\.rb$%)
+    else
+      ["test/unit/helpers/#{m[1]}_helper_test.rb",
+       "test/views/#{m[1]}_view_test.rb",
+       "test/functional/#{m[1]}_controller_test.rb"]
+    end
+  end
+  
+  autotest.add_mapping %r%^test/unit/helpers/application_helper_test.rb$% do |filename, _|
+    autotest.files_matching %r%^test/(views|functional|unit/helpers)/.*_test\.rb$%
+  end
+end
