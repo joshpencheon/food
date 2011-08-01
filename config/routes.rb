@@ -1,13 +1,4 @@
 Food::Application.routes.draw do
-  get "purchases/create"
-
-  get "baskets/index"
-
-  get "baskets/new"
-
-  get "baskets/edit"
-
-  get "baskets/show"
 
   resources :baskets do
     resources :purchases

@@ -12,6 +12,7 @@ class BasketsController < ApplicationController
     if @basket.save
       redirect_to @basket
     else
+      flash[:error] = "Basket not valid"
       render 'new'
     end
   end

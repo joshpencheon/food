@@ -5,6 +5,7 @@ FactoryGirl.define do
   end
   
   factory :basket do
+    association :shop
   end
   
   factory :basket_with_purchases, :parent => :basket do
@@ -12,7 +13,7 @@ FactoryGirl.define do
   end
   
   factory :purchase do
-    quantity   1
+    quantity 1
     unit_price_in_pence 100
     product
   end

@@ -4,6 +4,7 @@ class Basket < ActiveRecord::Base
   has_many :products, :through => :purchases
   belongs_to :shop
   
+  validates_presence_of :shop
   validates_presence_of :shop_date
   
   before_validation :set_shop_date
