@@ -7,6 +7,7 @@ class PurchasesController < ApplicationController
     @purchase = product.purchases.build(params[:purchase])
     if product.id && @purchase.save
       flash[:notice] = "Saved!"
+      @purchase_created = true
     else
       flash[:error] = "Invalid!"
     end

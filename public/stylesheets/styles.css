@@ -16,12 +16,6 @@ input[type=text] {
 	font-size: 1em;
 }
 
-input[type=submit] {
-	padding: 0.2em 0.3em;
-	font-size: 1em;
-	border: 1px solid black;
-}
-
 a {
 	color: inherit;
 	text-decoration: none;
@@ -95,8 +89,7 @@ a:hover {
 }
 
 #product_name,
-#product_ean,
-.product-name {
+#product_ean {
 	width: 16em;
 	padding: 0.6em;
 	display: block;
@@ -128,25 +121,62 @@ input[disabled] {
 #purchase_quantity,
 .purchase-quantity {
 	width: 2em;
+	text-align: right;
 }
 
-.purchase-cost {
+#purchase_unit_price {
 	text-align: right;
-	padding-right: 3em;
+}
+
+.product-name,
+.purchase-quantity,
+.purchase-cost,
+.purchase-controls {
+	float: left;
 }
 
 .purchase-quantity {
 	text-align: right;
+	width: 4em;
+}
+
+.product-name {
+	padding: 0 2em;
+	width: 14em;
+}
+
+.purchase-cost {
+	width: 5em;
+	text-align: right;
 	padding-left: 3em;
 }
 
-#purchase_unit_price,
-.purchase-unit-price {
+.purchase-controls {
+	padding-left: 1em;
+	font-size: 0.7em;
+	color: white;
+	display: none;
+}
+
+.purchase-controls:hover {
+	text-decoration: underline;
+}
+
+.purchase {
+	height: 1.2em;
+	clear: both;
+}
+
+.purchase.hover {
+	font-weight: bold;
+	background-color: black;
+	color: white;
+}
+
+#purchase_unit_price {
 	width: 5em;
 }
 
 #existing_purchases {
 	font-size: 1.5em;
-	width: 100%;
-	border-left: 1px solid black;
 }

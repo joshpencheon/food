@@ -13,4 +13,12 @@ class ProductTest < ActiveSupport::TestCase
       product.destroy
     end
   end
+  
+  test "should count purchases correctly" do
+    product = create(:product)
+    3.times { |x| create(:purchase, :product_id => product.id, :quantity => x+1) }
+    
+    assert_equal 6, product.purchase_count
+  end
+  
 end

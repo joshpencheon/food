@@ -1,7 +1,7 @@
 <table>
-  <tr><th>Name</th><th>EAN</th></tr>
+  <tr><th></th><th>Name</th><th>EAN</th></tr>
   
-  <% for product in @products do %>
-    <tr><td><%= link_to product.name, product %></td><td><%= product.ean %></td></tr>
+  <% for product in @products.sort_by(&:purchase_count).reverse do %>
+    <tr><td><%= product.purchase_count %></td><td><%= link_to product.name, product %></td><td><%= product.ean %></td></tr>
   <% end %>
 </table>

@@ -1,19 +1,29 @@
-<table id="existing_purchases" border="0" cellspacing="0">
-  <% basket.purchases.reject(&:new_record?).each do |purchase| %>
-    <tr class="purchase">
-      <td class="purchase-quantity"><%= purchase.quantity %></td>
-      <td class="product-name">
+<div id="existing_purchases" border="0" cellspacing="0">
+  
+  <% tagged_purchases_for(basket).each do |purchase| %>
+    <%= div_for_purchase(purchase) do %>
+      <span class="purchase-quantity">
+        <%= purchase.quantity %>
+      </span>
+      <span class="product-name">
         <%= purchase.product.name %>
         @ <%= format_price(purchase.unit_price, false) %>
-      </td>
-      <td class="purchase-cost"><%= format_price(purchase.cost, false) %></td>
-    </tr>
+      </span>
+      <span class="purchase-cost">
+        <%= format_price(purchase.cost, false) %>
+      </span>
+      <span class="purchase-controls">
+        edit
+      </span>
+    <% end %>
   <% end %>
-  <tr>
-    <td></td>
-    <td></td>
-    <td class="purchase-cost">
-      <strong style="border-top: 3px solid black"><%= format_price(basket.cost) %></strong>
-    </td>
-  </tr>
-</table>
+  <div>
+    <span></span>
+    <span></span>
+    <span class="purchase-cost">
+      <strong style="border-top: 3px solid black">
+        <%= format_price(basket.cost) %>
+      </strong>
+    </span>
+  </div>
+</div>

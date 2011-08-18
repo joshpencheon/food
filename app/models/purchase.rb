@@ -11,6 +11,8 @@ class Purchase < ActiveRecord::Base
   validates_numericality_of :unit_price_in_pence
   validates_numericality_of :saving_in_pence
     
+  attr_accessor :creation_status
+    
   def save(*args)
     return self.destroy if quantity < 1
     

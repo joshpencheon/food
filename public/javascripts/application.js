@@ -31,6 +31,10 @@ $(document).ready(function (){
 	$.extend($.easing, {
 		easeDotPrinter: function (x, t, b, c, d) {
 			return b + (c-b)*Math.floor(7*t/d)/7;
+		},
+		
+		flicker: function(x, t, b, c, d) {
+			return Math.abs(0.5*(2*(t/d) + ((d-t)/d)*Math.sin(10*(t/d)*(d/t - 1)) ));
 		}
 	})
 		
@@ -70,10 +74,18 @@ $(document).ready(function (){
 	};
 		
 	$('#new_purchase').remote(function(data) { 
-		$('#basket').html(data).css({
-			position:'relative', 
-			top: -$('#basket').find('.purchase').first().height() + 'px'
-		}).animate({top: 0}, 700, 'easeDotPrinter');
+		// $('#basket').html(data).css({
+		// 	position:'relative', 
+		// 	top: -$('#basket').find('.purchase').first().height() + 'px'
+		// }).animate({top: 0}, 700, 'easeDotPrinter');
+		
+		$('#basket').html(data);
+		$('#basket').find('.purchase.created').hide().show('slide', {easing: 'easeDotPrinter', direction: 'up'}, 700);
+		$('#basket').find('.purchase.updated').addClass('hover').removeClass('hover', 500,'flicker');
+	});
+	
+	$('.purchase').hover(function(event) { 
+		$(this).toggleClass('hover').find('.purchase-controls').toggle();
 	});
 	
 	var createNewProduct = function(input) { productAnim() };
