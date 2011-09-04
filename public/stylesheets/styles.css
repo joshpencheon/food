@@ -36,6 +36,10 @@ code {
 	color: red;
 }
 
+.right {
+	float: right;
+}
+
 #header {
 	padding: 1em;
 	background-color: #CCC;
