@@ -9,14 +9,13 @@ class Product < ActiveRecord::Base
 
   
   has_many :purchases, :dependent => :destroy
-  has_many :baskets, :through => :purchases
+  has_many :baskets, :through => :purchases, :uniq => true
   
   def self.find_for_autocomplete(query)
     where('ean like ? or name like ?', "#{query}%", "%#{query}%")
   end
   
   def self.find_or_create_from_params(params)
-    Rails.logger.info('---- ' + params.inspect)
     existing = find_by_name(params[:name])
     if existing
       existing

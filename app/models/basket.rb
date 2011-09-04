@@ -1,7 +1,7 @@
 class Basket < ActiveRecord::Base
   
   has_many :purchases
-  has_many :products, :through => :purchases
+  has_many :products, :through => :purchases, :uniq => true
   belongs_to :shop
   
   validates_presence_of :shop
