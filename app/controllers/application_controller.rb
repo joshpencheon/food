@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
   private
   
   def simulate_xhr
-    sleep(1) if request.xhr? && request.post?
+    sleep(1) if request.xhr? && request.post? && Rails.env.development?
   end
 end
