@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rake', '0.8.7'
+gem 'rake', '0.9.2'
 
-gem 'rails', '3.0.5'
+gem 'rails', '3.0.10'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -16,6 +16,7 @@ group :test do
   gem 'autotest-rails'
   gem 'autotest-growl'
   gem 'autotest-fsevent'
+  gem 'turn'
 end
 
 # Use unicorn as the web server
