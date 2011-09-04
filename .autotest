@@ -11,6 +11,10 @@ Autotest.add_hook :initialize do |autotest|
     filename
   end
   
+  autotest.add_mapping %r%^test/factories.rb% do |filename, _|
+    autotest.files_matching(%r%^test/.*/.*_test\.rb$%)
+  end
+  
   autotest.add_mapping %r%^app/helpers/(.*)_helper.rb% do |_, m|
     if m[1] == "application" then
       ["test/unit/helpers/application_helper_test.rb"] + 
