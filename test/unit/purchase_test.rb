@@ -5,6 +5,11 @@ class PurchaseTest < ActiveSupport::TestCase
     assert build(:purchase).valid?
   end
   
+  test "new purchase should have cost of 0" do
+    purchase = Purchase.new
+    assert purchase.cost.zero?
+  end
+  
   test "purchase should calculate cost correctly with no saving" do
     purchase = build(:purchase, :unit_price_in_pence => 200, :quantity => 3)
     
@@ -17,23 +22,29 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal 2.00 * 3 - 1.00, purchase.cost
   end
   
+  test "purchase should have by default a creation status of nil" do
+    create(:purchase)
+    
+    assert_nil Purchase.first.creation_status
+  end
+  
   test "purchase should update quantity & saving instead of creating if has been made already" do
     basket = create(:basket)    
     product = create(:product)
-        
-    first_purchase  = build(:purchase,      :product_id => product.id, :unit_price_in_pence => 200,
-                            :quantity => 3, :saving_in_pence => 200,   :basket_id => basket.id)
-    first_purchase.save
+
+    first_purchase = basket.purchases.create_or_update({
+      :product_id => product.id, :unit_price_in_pence => 200,
+      :quantity => 3, :saving_in_pence => 200 })                        
     
     assert_equal 3, first_purchase.quantity
     assert_equal 2, first_purchase.saving
 
-    second_purchase = build(:purchase,      :product_id => product.id, :unit_price_in_pence => 200,
-                            :quantity => 2, :saving_in_pence => 100,   :basket_id => basket.id)
-    
-    second_purchase.save
-    first_purchase.reload
-    
+    second_purchase = basket.purchases.create_or_update({
+      :product_id => product.id, :unit_price_in_pence => 200,
+      :quantity => 2, :saving_in_pence => 100 })    
+    first_purchase.reload    
+
+    assert_equal first_purchase, second_purchase  
     assert_equal 5, first_purchase.quantity
     assert_equal 3, first_purchase.saving
     
@@ -88,6 +99,6 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_prices_for(purchase, 0,     0,    0.00 )
     assert_prices_for(purchase, 0.995, 100,  1.00 )
     assert_prices_for(purchase, 10.2,  1020, 10.20)
-        
   end
+  
 end

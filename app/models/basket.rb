@@ -1,6 +1,7 @@
 class Basket < ActiveRecord::Base
   
-  has_many :purchases
+  has_many :purchases, :extend => MergePurchasesExtension
+  
   has_many :products, :through => :purchases, :uniq => true
   belongs_to :shop
   

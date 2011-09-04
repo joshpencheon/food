@@ -16,15 +16,8 @@ input[type=text] {
 	font-size: 1em;
 }
 
-a {
-	color: inherit;
-	text-decoration: none;
-	text-shadow: #333 0 0 2px;
-}
-
-a:hover {
-	color: #006FDD;
-	text-shadow: #007EFA 0 0 2px;
+code {
+	font-family: 'Courier New';
 }
 
 .grey {
@@ -51,7 +44,6 @@ a:hover {
 	margin: 0 auto;
 	text-align: left;
 	padding: 1em;
-	border-top: 1px solid #FFF;
 }
 
 #new_purchase {
@@ -95,9 +87,6 @@ a:hover {
 	display: block;
 }
 
-.product-name {
-	padding: 0.2em 0.3em;
-}
 
 #product_ean {
 	margin-top: 0.2em;
@@ -143,6 +132,14 @@ input[disabled] {
 .product-name {
 	padding: 0 2em;
 	width: 14em;
+}
+
+.product-name a {
+	color: inherit;
+}
+
+.product-name a:hover {
+	text-decoration: underline;
 }
 
 .purchase-cost {

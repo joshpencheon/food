@@ -6,7 +6,7 @@
         <%= purchase.quantity %>
       </span>
       <span class="product-name">
-        <%= purchase.product.name %>
+        <%= link_to purchase.product.name, purchase.product %>
         @ <%= format_price(purchase.unit_price, false) %>
       </span>
       <span class="purchase-cost">

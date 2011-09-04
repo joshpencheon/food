@@ -47,10 +47,10 @@ $(document).ready(function (){
 				if (e.which == 13) { form.submit(); }
 			});
 			
-			form.submit(function(e) {
+			form.submit(function(e) {				
 				$.ajax({
 					type: 'post',
-					url: '/baskets/4/purchases',
+					url: form.attr('action'),
 					data: form.serialize(),
 					dataType: 'js',
 					success: function(data) { 
@@ -74,14 +74,18 @@ $(document).ready(function (){
 	};
 		
 	$('#new_purchase').remote(function(data) { 
-		// $('#basket').html(data).css({
-		// 	position:'relative', 
-		// 	top: -$('#basket').find('.purchase').first().height() + 'px'
-		// }).animate({top: 0}, 700, 'easeDotPrinter');
+		var basket = $('#basket');
 		
-		$('#basket').html(data);
-		$('#basket').find('.purchase.created').hide().show('slide', {easing: 'easeDotPrinter', direction: 'up'}, 700);
-		$('#basket').find('.purchase.updated').addClass('hover').removeClass('hover', 500,'flicker');
+		basket.html(data);
+		
+		if (basket.find('.purchase.created').length) {
+			basket.html(data).css({
+				position:'relative', 
+				top: -basket.find('.purchase.created').first().height() + 'px'
+			}).animate({top: 0}, 700, 'easeDotPrinter');			
+		};
+		
+		basket.find('.purchase.updated').addClass('hover').removeClass('hover', 500,'flicker');
 	});
 	
 	$('.purchase').hover(function(event) { 

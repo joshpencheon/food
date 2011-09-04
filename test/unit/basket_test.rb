@@ -6,10 +6,11 @@ class BasketTest < ActiveSupport::TestCase
   end
   
   test "basket total cost should be equal to sum of purchase costs" do
-    basket = build(:basket_with_purchases)
-    purchases = basket.purchases
+    basket = build(:basket)
+    2.times { basket.purchases.create_or_update attributes_for(:purchase) }
     
-    assert_equal purchases.map(&:cost).sum, basket.cost
+    assert basket.purchases.any?
+    assert_equal basket.purchases.map(&:cost).sum, basket.cost
   end
   
   test "should parse shop date correctly" do
