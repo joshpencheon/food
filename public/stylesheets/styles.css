@@ -134,14 +134,6 @@ input[disabled] {
 	width: 14em;
 }
 
-.product-name a {
-	color: inherit;
-}
-
-.product-name a:hover {
-	text-decoration: underline;
-}
-
 .purchase-cost {
 	width: 5em;
 	text-align: right;
@@ -155,7 +147,12 @@ input[disabled] {
 	display: none;
 }
 
-.purchase-controls:hover {
+.purchase-controls a {
+	color: inherit;
+}
+
+
+.purchase-controls a:hover {
 	text-decoration: underline;
 }
 

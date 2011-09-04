@@ -6,14 +6,15 @@
         <%= purchase.quantity %>
       </span>
       <span class="product-name">
-        <%= link_to purchase.product.name, purchase.product %>
+        <%= purchase.product.name %>
         @ <%= format_price(purchase.unit_price, false) %>
       </span>
       <span class="purchase-cost">
         <%= format_price(purchase.cost, false) %>
       </span>
       <span class="purchase-controls">
-        edit
+        <%= link_to 'go', purchase.product %> |
+        <%= link_to 'edit' %>
       </span>
     <% end %>
   <% end %>
