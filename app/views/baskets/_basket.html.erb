@@ -21,14 +21,14 @@
     <% end %>
   <% end %>
   
-  <% if basket_purchases.any? %>
-    <div>
-      <span class="purchase-quantity">&nbsp;</span>
-      <span class="product-name">&nbsp;</span>
-      <span class="purchase-cost basket-cost">
-        <%= format_price(basket.cost) %>
-      </span>
-    </div>
-  <% end %>
-  
-</div>
+</div>  
+
+<% if basket_purchases.any? %>
+  <div id="basket_totals">
+    <span class="purchase-quantity">&nbsp;</span>
+    <span class="product-name">&nbsp;</span>
+    <span class="purchase-cost basket-cost">
+      <%= format_price(basket.cost) %>
+    </span>
+  </div>
+<% end %>

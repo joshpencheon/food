@@ -63,7 +63,8 @@ code {
 
 #new_purchase,
 #new_purchase input,
-#existing_purchases {
+#existing_purchases,
+#basket_totals {
 	font-family: courier;
 }
 
@@ -119,6 +120,11 @@ input[disabled] {
 
 #purchase_unit_price {
 	text-align: right;
+}
+
+#existing_purchases {
+	height: 400px;
+	overflow-y: scroll;
 }
 
 .product-name,
@@ -180,6 +186,7 @@ input[disabled] {
 	width: 5em;
 }
 
+#basket_totals,
 #existing_purchases {
 	font-size: 1.5em;
 }
