@@ -22,8 +22,7 @@ class ProductsController < ApplicationController
     @product = Product.new(params[:product])
     
     if @product.save
-      # TEMP:
-      redirect_to products_path(:format => :json)
+      redirect_to products_path
     else
       render :new
     end
@@ -40,6 +39,12 @@ class ProductsController < ApplicationController
   end
   
   def destroy
+    @product = Product.find(params[:id])
+    if @product.destroy
+      redirect_to products_path
+    else
+      flash[:error] = "Failed to delete product"
+    end
   end
 
 end
