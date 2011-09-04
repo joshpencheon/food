@@ -1,6 +1,8 @@
 <div id="existing_purchases" border="0" cellspacing="0">
   
-  <% tagged_purchases_for(basket).each do |purchase| %>
+  <% basket_purchases = tagged_purchases_for(basket) %>
+  
+  <% basket_purchases.each do |purchase| %>
     <%= div_for_purchase(purchase) do %>
       <span class="purchase-quantity">
         <%= purchase.quantity %>
@@ -18,13 +20,15 @@
       </span>
     <% end %>
   <% end %>
-  <div>
-    <span></span>
-    <span></span>
-    <span class="purchase-cost">
-      <strong style="border-top: 3px solid black">
+  
+  <% if basket_purchases.any? %>
+    <div>
+      <span class="purchase-quantity">&nbsp;</span>
+      <span class="product-name">&nbsp;</span>
+      <span class="purchase-cost basket-cost">
         <%= format_price(basket.cost) %>
-      </strong>
-    </span>
-  </div>
+      </span>
+    </div>
+  <% end %>
+  
 </div>

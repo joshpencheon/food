@@ -1,11 +1,6 @@
 <div>
-  <h1 class="grey">
+  <h1>
     <%= basket_header.shop_date_string %>
+    <span class="grey"> - <%= basket_header.shop.name %></span>
   </h1>
-  <p>
-    <%= basket_header.shop.name %>     
-    <span class="grey">
-      <%= format_price basket_header.cost %>
-    </span>
-  </p>
 </div>

@@ -8,6 +8,10 @@ body {
 	text-align: center;
 }
 
+a {
+	color: inherit;
+}
+
 input[type=text] {
 	padding: 0.6em;
 	border: none;
@@ -137,7 +141,12 @@ input[disabled] {
 .purchase-cost {
 	width: 5em;
 	text-align: right;
-	padding-left: 3em;
+	margin-left: 3em;
+}
+
+.basket-cost {
+	border-top: 3px solid black;
+	font-weight: bold;
 }
 
 .purchase-controls {
