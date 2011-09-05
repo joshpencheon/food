@@ -5,5 +5,9 @@
 // the compiled file.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
+//= require jquery.ui.autocomplete
+//= require jquery.ui.autocomplete.ext
+//= require food
 //= require_tree .

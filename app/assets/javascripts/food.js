@@ -52,16 +52,15 @@ $(document).ready(function (){
 					type: 'post',
 					url: form.attr('action'),
 					data: form.serialize(),
-					dataType: 'js',
+					dataType: 'html',
 					success: function(data) { 
-						alert('success!')						
-						form.find('input[type=text]').attr('disabled', '')
+						form.find('input[type=text]').removeAttr('disabled')
 							.val('').first().focus(); 
 						productAnim2();
 						callback(data);
 					}
 				});
-				
+
 				form.find('input[type=text]').attr('disabled', 'disabled');
 				return false;
 			});
@@ -75,7 +74,6 @@ $(document).ready(function (){
 	};
 		
 	$('#new_purchase').remote(function(data) { 
-		alert('callback called')
 		var basket = $('#basket');
 		
 		basket.html(data);

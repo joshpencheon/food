@@ -15,7 +15,7 @@ class PurchasesController < ApplicationController
     
     respond_to do |format|
       format.html { redirect_to @basket }
-      format.js { render @basket }
+      format.js { render @basket, :content_type => 'text/html' }
     end
   end
   
