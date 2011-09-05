@@ -20,7 +20,7 @@ module MergePurchasesExtension
   private
     
   def find_for_merge(purchase)
-    other_purchases = proxy_owner.purchases - [ purchase ]
+    other_purchases = proxy_association.owner.purchases - [ purchase ]
     other_purchases.detect do |other| 
       other.product_id == purchase.product_id && 
         other.unit_price_in_pence == purchase.unit_price_in_pence

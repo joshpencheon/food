@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rake', '0.9.2'
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.1.0'
 gem 'jquery-rails', '>= 1.0.12'
 
 # Bundle edge Rails instead:
