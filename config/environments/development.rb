@@ -8,7 +8,11 @@ Food::Application.configure do
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
-
+  
+  # Disable the asset pipeline
+  config.assets.enabled = true
+  config.assets.debug = true
+  
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
 

@@ -54,6 +54,7 @@ $(document).ready(function (){
 					data: form.serialize(),
 					dataType: 'js',
 					success: function(data) { 
+						alert('success!')						
 						form.find('input[type=text]').attr('disabled', '')
 							.val('').first().focus(); 
 						productAnim2();
@@ -74,6 +75,7 @@ $(document).ready(function (){
 	};
 		
 	$('#new_purchase').remote(function(data) { 
+		alert('callback called')
 		var basket = $('#basket');
 		
 		basket.html(data);
