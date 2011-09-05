@@ -74,7 +74,7 @@ code {
 
 #new_purchase .progress {
 	float: right;
-	background: url('/images/green-spinner.gif') no-repeat center center;
+	background: url('/assets/green-spinner.gif') no-repeat center center;
 	width: 3em;
 	height: 2.5em;
 	text-align: center;
@@ -86,7 +86,7 @@ code {
 }
 
 #new_purchase.new-product .progress {
-	background-image: url('/images/yellow-spinner.gif');
+	background-image: url('/assets/yellow-spinner.gif');
 }
 
 #product_name,
