@@ -5,6 +5,40 @@ class BasketTest < ActiveSupport::TestCase
     assert build(:basket).valid?
   end
   
+  test "should have a complete bill after creation" do
+    basket = create(:basket)
+    
+    assert basket.bills.any?
+    assert_equal 100, basket.bills.first.proportion
+  end
+  
+  test "should autosave any bills" do
+    basket = create(:basket)
+    basket.bills.build(:proportion => 50)
+    
+    assert basket.save
+    assert_equal 2, basket.bills(true).length
+  end
+  
+  test "should balance equally bills when proportions invalid" do
+    basket = create(:basket)
+    3.times { basket.bills.build(:proportion => 13) }
+    basket.save
+    basket.bills(true).each do |bill|
+      assert_equal 25, bill.proportion
+    end
+  end
+  
+  test "should not balance bills with valid proportions" do
+    basket = create(:basket)
+    basket.bills.first.proportion = 97
+    3.times { |x| basket.bills.build(:proportion => x) }
+    basket.save
+    basket.bills(true).each do |bill|
+      assert bill.proportion != 25
+    end
+  end
+  
   test "basket total cost should be equal to sum of purchase costs" do
     basket = build(:basket)
     2.times { basket.purchases.create_or_update attributes_for(:purchase) }

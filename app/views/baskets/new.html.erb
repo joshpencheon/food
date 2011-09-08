@@ -1,15 +1,15 @@
 <h1>New Basket:</h1>
 
-<%= form_for @basket do |f| %>
+<%= form_for @basket do |form| %>
   <p>
-    <%= f.label :shop_id, "Shop" %>
+    <%= form.label :shop_id, "Shop" %>
     <%= select :basket, :shop_id, Shop.all.map { |shop| [ shop.name, shop.id ] } %>
   </p>
 
   <p>
-    <%= f.label :shop_date, "Shop Date" %>
+    <%= form.label :shop_date, "Shop Date" %>
     <%= date_select :basket, :shop_date, :use_month_numbers => true %> 
   </p>
   
-  <%= f.submit "Create", :disable_with => 'Creating...' %>
+  <%= form.submit "Create", :disable_with => 'Creating...' %>
 <% end %>

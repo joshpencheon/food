@@ -8,6 +8,10 @@ FactoryGirl.define do
     shop    
   end
   
+  factory :bill do
+    basket
+  end
+  
   factory :purchase do
     quantity 1
     unit_price_in_pence 100
