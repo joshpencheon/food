@@ -1,7 +1,7 @@
 class Bill < ActiveRecord::Base
   belongs_to :basket
     
-  after_initialize :set_defaults
+  after_initialize :set_defaults, :if => :new_record?
   
   private
   
