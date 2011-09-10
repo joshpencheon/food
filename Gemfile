@@ -10,14 +10,14 @@ gem 'jquery-rails', '>= 1.0.12'
 
 gem 'sqlite3'
 
-group :test do
+group :development, :test do
   gem 'factory_girl'
-  gem 'ZenTest'
-  gem 'autotest'
+  gem 'autotest-standalone'
   gem 'autotest-rails'
   gem 'autotest-growl'
   gem 'autotest-fsevent'
   gem 'turn'
+  gem 'parallel_tests'
 end
 
 # Use unicorn as the web server
