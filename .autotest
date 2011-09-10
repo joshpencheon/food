@@ -1,7 +1,7 @@
-require "ZenTest"
 require "autotest/rails"
 require "autotest/growl"
 require "autotest/fsevent"
+
 Autotest.add_hook :initialize do |autotest|
   %w{app/assets .git .svn .hg .DS_Store ._* vendor tmp log doc config .rvmrc Gemfile system.gems .autotest README Rakefile}.each do |exception|
     autotest.add_exception(exception)
