@@ -3,7 +3,9 @@ require "autotest/growl"
 require "autotest/fsevent"
 
 Autotest.add_hook :run_command do |autotest|
-  Autotest::Growl.growl('FOOD: Test suite started.', 'Working...', 'pending')
+  Autotest::Growl.class_eval do
+    growl(@label + 'Test suite started.', 'Working...', 'pending')
+  end
 end
 
 Autotest.add_hook :initialize do |autotest|
