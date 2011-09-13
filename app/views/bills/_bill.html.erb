@@ -1,1 +1,7 @@
-Bill <%= bill.basket.bills.index(bill) + 1 %>: <%= bill.proportion %>%
+<div>
+  <div style="width: 100px; height: 1em;border: 1px solid black;">
+    <div style="width: <%= bill.proportion %>px; height: 1em; background-color: red">
+      <span><%= bill.proportion %>%</span>
+    </div>
+  </div>
+</div>
