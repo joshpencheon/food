@@ -5,6 +5,7 @@
 // the compiled file.
 //
 //= require jquery
+//= require jquery.enumerable
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
