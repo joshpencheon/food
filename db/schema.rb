@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20110908180146) do
 
   create_table "bills", :force => true do |t|
     t.integer  "basket_id"
-    t.integer  "proportion"
+    t.float    "proportion"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
