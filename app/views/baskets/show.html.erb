@@ -1,7 +1,7 @@
 <%= render :partial => 'basket_header', :object => @basket %>
 
 <%= form_for @basket do |basket_form| %>
-  <%= render :partial => 'bills/bills', :object => @basket.bills, :locals => { :form => basket_form }  %>
+  <%= render :partial => 'bills/pie_bills', :object => @basket.bills, :locals => { :form => basket_form }  %>
   <%= basket_form.submit 'Update bills' %>
 <% end %>
 
