@@ -4,7 +4,9 @@ class Basket < ActiveRecord::Base
   
   has_many :purchases, :extend => MergePurchasesExtension
   has_many :products, :through => :purchases, :uniq => true
-  has_many :bills, :autosave => true
+
+  has_many :bills
+  accepts_nested_attributes_for :bills
   
   before_validation :set_shop_date
   before_validation :ensure_billed
@@ -33,8 +35,10 @@ class Basket < ActiveRecord::Base
   end
   
   def ensure_billed
-    if bills.map(&:proportion).sum != 100
-      bills.each { |bill| bill.proportion = (100.to_f / bills.length).ceil } 
+    if (100.0 - bills.map(&:proportion).sum).abs > 0.5
+      bills.each { |bill| bill.proportion = (100.0 / bills.length) } 
+    else
+      bills.last.proportion = 100.0 - (bills - [ bills.last ]).map(&:proportion).sum
     end
   end
   

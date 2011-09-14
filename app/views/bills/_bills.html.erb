@@ -1,15 +1,20 @@
-<%= render bills %>
+<%# render bills %>
 
 <canvas id="pie_controller" width="200" height="200">
-  
+  Polite notice: your browser sucks.
 </canvas>
 
+<%= form.fields_for :bills do |bills_form| %>
+  <%= bills_form.hidden_field :proportion %>
+<% end %>
+
 <% segments = [] %>
-<% bills.each do |bill|  
+<% bills.each_with_index do |bill, index|  
   skew = segments.any? ? segments.last[:bounds][:max] : -Math::PI
   
   segments << {
     :bill => bill.id,
+    :fieldId => "#basket_bills_attributes_#{index}_proportion",
     :proportion => bill.proportion,
     :originalProportion => bill.proportion,
     :bounds => { :min => 0, :max => 0 }
@@ -71,9 +76,6 @@ end %>
     
     // var angleFromO = V.angle(vector, V.init(0, -1));
     var angleFromO = V.angle(vector, V.init(1, 0));
-    
-    console.log(angleFromO);
-    
     var matchedIndex;
     
     for(i=0; i < segments.length; i++) {
@@ -84,13 +86,15 @@ end %>
     };
     
     mouseDownOver = segments[matchedIndex];
-    
-    console.log( colors[matchedIndex % colors.length] )
-     
   });
    
   $(ctx.canvas).mouseup(function(e){
     mouseDownOver = null;
+    
+    $.each(segments, function(index) {
+      this.originalProportion = this.proportion;
+      $(this.fieldId).val(this.originalProportion);
+    });
   })
 
   $(ctx.canvas).mousemove(function(e) {
@@ -98,13 +102,19 @@ end %>
     mouse.d.y = e.pageY - $(this).offset().top;
     
     var mag = V.magnitude(V.sub(mouse.d, V.init(100, 100)));
-    console.log(mag)
     mag *= 3;
-    // mag = Math.min(100, Math.max(0, mag));
     if (mouseDownOver) {         
-       console.log(mag)
-       mouseDownOver.proportion = mouseDownOver.originalProportion*(mag / 100);
-       console.log(mouseDownOver.proportion)
+      mouseDownOver.proportion = mouseDownOver.originalProportion*(mag / 100);
+       
+      var otherSegments = $(segments).reject(function() {
+        return this == mouseDownOver
+      });
+      
+      var increment = mouseDownOver.proportion - mouseDownOver.originalProportion;
+      
+      $.each(otherSegments, function(index) {
+        this.proportion = Math.max(1, this.originalProportion - (increment / otherSegments.length));
+      });
     }
   });
    

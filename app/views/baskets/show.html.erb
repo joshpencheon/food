@@ -1,6 +1,9 @@
 <%= render :partial => 'basket_header', :object => @basket %>
 
-<%= render :partial => 'bills/bills', :object => @basket.bills  %>
+<%= form_for @basket do |basket_form| %>
+  <%= render :partial => 'bills/bills', :object => @basket.bills, :locals => { :form => basket_form }  %>
+  <%= basket_form.submit 'Update bills' %>
+<% end %>
 
 <%= form_for [@basket, @basket.purchases.build], :html => { :autocomplete => 'off' } do |form| %>
   

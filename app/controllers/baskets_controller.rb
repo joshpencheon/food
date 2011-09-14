@@ -17,6 +17,16 @@ class BasketsController < ApplicationController
     end
   end
 
+  def update
+    @basket = Basket.find(params[:id])
+    if @basket.update_attributes(params[:basket])
+      redirect_to @basket
+    else
+      flash[:error] = "Error updating basket"
+      render 'show'
+    end
+  end
+
   def show
     @basket = Basket.find(params[:id])
   end
