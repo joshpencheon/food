@@ -1,12 +1,14 @@
 <%# render bills %>
 
-<canvas id="pie_controller" width="200" height="200">
+<canvas id="pie_controller" width="400" height="400">
   Polite notice: your browser sucks.
 </canvas>
 
 <%= form.fields_for :bills do |bills_form| %>
   <%= bills_form.hidden_field :proportion %>
 <% end %>
+
+<a id="pie_equalise" href="#">Equalise</a>
 
 <% segments = [] %>
 <% pie_bills.each_with_index do |bill, index|  
@@ -58,10 +60,10 @@ end %>
     }
   };
 
-  //get a reference to the canvas
   var ctx = $('#pie_controller')[0].getContext("2d");
   
   var mouseDownOver;
+  var originalProportion;
   var mouse = {
     p: V.init(0, 0),
     d: V.init(0, 0)
@@ -72,7 +74,7 @@ end %>
     mouse.p.x = e.pageX - $(this).offset().left,
     mouse.p.y = e.pageY - $(this).offset().top;
     
-    var vector = { x: mouse.p.x - 100, y: 100 - mouse.p.y };
+    var vector = { x: mouse.p.x - 200, y: 200 - mouse.p.y };
     
     // var angleFromO = V.angle(vector, V.init(0, -1));
     var angleFromO = V.angle(vector, V.init(1, 0));
@@ -85,7 +87,10 @@ end %>
       };
     };
     
+    // console.log(colors[matchedIndex % colors.length])
+    
     mouseDownOver = segments[matchedIndex];
+    originalProportion = mouseDownOver.originalProportion;
   });
    
   $(ctx.canvas).mouseup(function(e){
@@ -95,26 +100,50 @@ end %>
       this.originalProportion = this.proportion;
       $(this.fieldId).val(this.originalProportion);
     });
-  })
+  });
+  
+  $('#pie_equalise').click(function(e) {    
+    $.each(segments, function(index) {
+      this.proportion = 100/segments.length;
+      this.originalProportion = this.proportion;
+      $(this.fieldId).val(this.originalProportion);
+    });
+    
+    e.preventDefault();
+  });
 
   $(ctx.canvas).mousemove(function(e) {
-    mouse.d.x = e.pageX - $(this).offset().left;
-    mouse.d.y = e.pageY - $(this).offset().top;
-    
-    var mag = V.magnitude(V.sub(mouse.d, V.init(100, 100)));
-    mag *= 3;
     if (mouseDownOver) {         
-      mouseDownOver.proportion = mouseDownOver.originalProportion*(mag / 100);
-       
-      var otherSegments = $(segments).reject(function() {
-        return this == mouseDownOver
+      mouse.d.x = e.pageX - $(this).offset().left;
+      mouse.d.y = e.pageY - $(this).offset().top;
+
+      var otherSegments = $(segments).reject(function() { return this == mouseDownOver }),
+          currentDistToO = V.magnitude(V.sub(mouse.d, V.init(200, 200))),
+          initialDistToO = V.magnitude(V.sub(mouse.p, V.init(200, 200))),
+          newProportion;
+    
+      // What is our new proportion?
+      if (currentDistToO < initialDistToO) {
+        newProportion = originalProportion * currentDistToO / initialDistToO;
+      } else {
+        newProportion = originalProportion + (currentDistToO - initialDistToO);
+      }
+      
+      var bound = function(value) {
+        return Math.max(1, Math.min(100 - otherSegments.length, value))
+      }
+
+      mouseDownOver.proportion = bound(newProportion);
+      var incAmount = mouseDownOver.proportion - mouseDownOver.originalProportion;
+      var totalOther = 100 - mouseDownOver.proportion;
+      
+      $.each(otherSegments, function(index) {                      
+        this.proportion = bound(this.originalProportion - (incAmount * this.originalProportion / totalOther));
       });
       
-      var increment = mouseDownOver.proportion - mouseDownOver.originalProportion;
-      
-      $.each(otherSegments, function(index) {
-        this.proportion = Math.max(1, this.originalProportion - (increment / otherSegments.length));
-      });
+      // Distribute any rounding error amoung the other segments:
+      var roundingError = (100 - $(segments).map(function() { return this.proportion }).sum());
+      $.each(otherSegments, function(index) { this.proportion += (roundingError / otherSegments.length) });
     }
   });
    
@@ -123,10 +152,10 @@ end %>
   var segments = $.parseJSON('<%= ActiveSupport::JSON.encode(segments).html_safe %>');
   var colors = [ 'red', 'green', 'yellow', 'blue', 'orange' ];
   
-  ctx.translate(100, 100);
+  ctx.translate(200, 200);
   
   setInterval(function(){    
-    ctx.clearRect(-100, -100, 200, 200);    
+    ctx.clearRect(-200, -200, 400, 400);    
     ctx.save()
     ctx.rotate(angle += 0.0);
     
@@ -137,7 +166,7 @@ end %>
       
       ctx.beginPath()
       ctx.moveTo(0, 0);
-      ctx.arc(0, 0, 80, segments[i].bounds.min, segments[i].bounds.max, false); 
+      ctx.arc(0, 0, 160, segments[i].bounds.min, segments[i].bounds.max, false); 
       ctx.closePath()
       ctx.fillStyle = colors[i % colors.length];
       ctx.fill();      
