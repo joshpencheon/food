@@ -136,11 +136,9 @@ end %>
       }
 
       mouseDownOver.proportion = bound(newProportion);
-      var incAmount = mouseDownOver.proportion - mouseDownOver.originalProportion;
-      var totalOther = 100 - mouseDownOver.proportion;
       
       $.each(otherSegments, function(index) {                      
-        this.proportion = bound(this.originalProportion - (incAmount * this.originalProportion / totalOther));
+        this.proportion = bound((100 - mouseDownOver.proportion) * this.originalProportion / 100);
       });
       
       // Distribute any rounding error amoung the other segments:
