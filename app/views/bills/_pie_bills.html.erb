@@ -100,6 +100,8 @@ end %>
       this.originalProportion = this.proportion;
       $(this.fieldId).val(this.originalProportion);
     });
+    
+    $(ctx.canvas).closest('form').submit()
   });
   
   $('#pie_equalise').click(function(e) {    
