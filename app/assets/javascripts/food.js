@@ -88,7 +88,7 @@ $(document).ready(function (){
 		basket.find('.purchase.updated').addClass('hover').removeClass('hover', 500,'flicker');
 	});
 	
-	$('.purchase').hover(function(event) { 
+	$('.purchase').live('hover', function(event) { 
 		$(this).toggleClass('hover').find('.purchase-controls').toggle();
 	});
 	
