@@ -4,6 +4,7 @@
   <p>
     <%= form.label :shop_id, "Shop" %>
     <%= select :basket, :shop_id, Shop.all.map { |shop| [ shop.name, shop.id ] } %>
+    (<%= link_to 'new', new_shop_path %>)
   </p>
 
   <p>
