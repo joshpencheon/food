@@ -1,5 +1,7 @@
 Food::Application.routes.draw do
 
+  resources :shops
+
   resources :baskets do
     resources :purchases
   end
