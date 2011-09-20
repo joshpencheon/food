@@ -1,7 +1,6 @@
+<% basket_purchases = tagged_purchases_for(basket) %>
+
 <div id="existing_purchases" border="0" cellspacing="0">
-  
-  <% basket_purchases = tagged_purchases_for(basket) %>
-  
   <% basket_purchases.each do |purchase| %>
     <%= div_for_purchase(purchase) do %>
       <span class="purchase-quantity">
@@ -21,7 +20,6 @@
       <div style="clear:both"></div>
     <% end %>
   <% end %>
-  
 </div>  
 
 <% if basket_purchases.any? %>
