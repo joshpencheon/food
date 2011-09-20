@@ -117,20 +117,16 @@ $(document).ready(function (){
 				else { createNewProduct(val); return [] };
 		},
 		buildList: function(list) {
-	        var self = this, listItems = $(list).map(function() {
+	    var self = this, listItems = $(list).map(function() {
 				var node = $(self.template(this))[0];
 				$.data(node, "originalObject", this.name);
 				return node;
-	        });
-
-	        var container = $(self.wrapper).append(listItems);
-
-	        var wrapTag = $(self.wrapper)[0].tagName;
-	        while (container[0].tagName !== wrapTag) {
-	          container = container.children(':first');
-	        }
-	        return container;
-	    },
+	    }), container = $(self.wrapper).append(listItems),
+        wrapTag = $(self.wrapper)[0].tagName;
+        
+      while (container[0].tagName !== wrapTag) { container = container.children(':first'); };
+      return container;
+	  },
 		template: function(match) { 
 			return "<li>" + "<span class='grey'>" + this.insertText(match.ean) + "</span>" + 
 			  this.insertText(match.name) + "</li>"; 
