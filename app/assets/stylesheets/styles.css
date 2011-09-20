@@ -12,7 +12,7 @@ a {
 	color: inherit;
 }
 
-input[type=text] {
+#new_purchase input[type=text] {
 	padding: 0.6em;
 	border: none;
 	outline: none;
@@ -127,7 +127,7 @@ input[disabled] {
 }
 
 #existing_purchases {
-	height: 400px;
+	max-height: 400px;
 	overflow-y: scroll;
 }
 
