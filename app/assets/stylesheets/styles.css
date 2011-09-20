@@ -144,8 +144,8 @@ input[disabled] {
 }
 
 .product-name {
-	padding: 0 2em;
-	width: 14em;
+  padding-left: 2em;
+	width: 16em;
 }
 
 .purchase-cost {
@@ -173,11 +173,6 @@ input[disabled] {
 
 .purchase-controls a:hover {
 	text-decoration: underline;
-}
-
-.purchase {
-	height: 1.2em;
-	clear: both;
 }
 
 .purchase.hover {
