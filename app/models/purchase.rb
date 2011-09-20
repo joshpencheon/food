@@ -9,7 +9,6 @@ class Purchase < ActiveRecord::Base
   
   validates_numericality_of :quantity
   validates_numericality_of :unit_price_in_pence
-  validates_numericality_of :saving_in_pence
   
   # Track whether this purchase was :created 
   # or :updated or neither (nil).  
@@ -19,12 +18,11 @@ class Purchase < ActiveRecord::Base
     
   def merge_with(purchase)
     self.quantity += purchase.quantity
-    self.saving   += purchase.saving
     self
   end
     
   def cost
-    unit_price * quantity - (saving || 0) rescue 0
+    unit_price * quantity rescue 0
   end
   
   def unit_price
@@ -33,14 +31,6 @@ class Purchase < ActiveRecord::Base
   
   def unit_price=(price_in_pounds)
     write_attribute(:unit_price_in_pence, (price_in_pounds.to_f.round(2) * 100).round(0).to_i)
-  end
-  
-  def saving
-    saving_in_pence ? (saving_in_pence.to_f / 100).round(2) : nil
-  end
-  
-  def saving=(saving_in_pounds)
-    write_attribute(:saving_in_pence, (saving_in_pounds.to_f.round(2) * 100).round(0).to_i)
   end
   
   private

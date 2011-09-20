@@ -10,16 +10,10 @@ class PurchaseTest < ActiveSupport::TestCase
     assert purchase.cost.zero?
   end
   
-  test "purchase should calculate cost correctly with no saving" do
+  test "purchase should calculate cost correctly" do
     purchase = build(:purchase, :unit_price_in_pence => 200, :quantity => 3)
     
     assert_equal 2.00 * 3, purchase.cost
-  end
-  
-  test "purchase should calculate cost correctly with saving" do
-    purchase = build(:purchase, :unit_price_in_pence => 200, :quantity => 3, :saving_in_pence => 100)
-    
-    assert_equal 2.00 * 3 - 1.00, purchase.cost
   end
   
   test "purchase should have by default a creation status of nil" do
@@ -28,25 +22,23 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_nil Purchase.first.creation_status
   end
   
-  test "purchase should update quantity & saving instead of creating if has been made already" do
+  test "purchase should update quantity instead of creating if has been made already" do
     basket = create(:basket)    
     product = create(:product)
 
     first_purchase = basket.purchases.create_or_update({
       :product_id => product.id, :unit_price_in_pence => 200,
-      :quantity => 3, :saving_in_pence => 200 })                        
+      :quantity => 3 })                        
     
     assert_equal 3, first_purchase.quantity
-    assert_equal 2, first_purchase.saving
 
     second_purchase = basket.purchases.create_or_update({
       :product_id => product.id, :unit_price_in_pence => 200,
-      :quantity => 2, :saving_in_pence => 100 })    
+      :quantity => 2 })    
     first_purchase.reload    
 
     assert_equal first_purchase, second_purchase  
     assert_equal 5, first_purchase.quantity
-    assert_equal 3, first_purchase.saving
     
     basket.reload
     assert_equal 1, basket.purchases.length
@@ -73,13 +65,8 @@ class PurchaseTest < ActiveSupport::TestCase
     purchase = build(:purchase, :unit_price_in_pence => nil)
     assert_nil purchase.unit_price
   end
-  
-  test "should have default saving of nil" do
-    purchase = build(:purchase, :saving_in_pence => nil)
-    assert_nil purchase.saving
-  end
-  
-  test "should store unit_price & saving in pence correctly" do
+    
+  test "should store unit_price in pence correctly" do
     purchase = build(:purchase)
     
     def assert_prices_for(purchase, set_value, db_value, get_value = set_value)
@@ -87,11 +74,6 @@ class PurchaseTest < ActiveSupport::TestCase
       assert_equal db_value, purchase.unit_price_in_pence
       assert_equal get_value.class, purchase.unit_price.class
       assert_equal get_value, purchase.unit_price
-      
-      purchase.saving = set_value
-      assert_equal db_value, purchase.saving_in_pence
-      assert_equal get_value.class, purchase.saving.class
-      assert_equal get_value, purchase.saving
     end
     
     assert_prices_for(purchase, 1.99,  199        )
