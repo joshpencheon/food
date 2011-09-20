@@ -1,9 +1,10 @@
 <%= render :partial => 'basket_header', :object => @basket %>
 
-<%= form_for @basket do |basket_form| %>
+<em>Billing data hidden</em>
+<!-- <%= form_for @basket do |basket_form| %>
   <%= render :partial => 'bills/pie_bills', :object => @basket.bills, :locals => { :form => basket_form }  %>
   <%= basket_form.submit 'Update bills' %>
-<% end %>
+<% end %> -->
 
 <%= form_for [@basket, @basket.purchases.build], :html => { :autocomplete => 'off' } do |form| %>
   
