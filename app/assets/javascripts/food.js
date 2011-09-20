@@ -23,8 +23,12 @@ var productAnim2 = function() {
 	};
 	editingNewProduct = false;
 };
-
-
+var productAnim3 = function() {
+  $('#new_purchase').find('.multibuy-options').show('fast')
+};
+var productAnim4 = function() {
+  $('#new_purchase').find('.multibuy-options').hide('fast')
+};
 
 $(document).ready(function (){
 	
@@ -94,6 +98,11 @@ $(document).ready(function (){
 	
 	var createNewProduct = function(input) { productAnim() };
 	
+	$('#purchase_quantity').blur(function(event) {
+    if ($(this).val() > 1 ) { productAnim3(); }
+    else { productAnim4() };
+	});
+	
 	$('#product_name').bind('cancelled.autocomplete', function() {
 		productAnim(); // Hit ESC to make new product...
 	}).autocomplete({
@@ -103,7 +112,7 @@ $(document).ready(function (){
 			return new RegExp(typed, 'i');
 		},
 		filterList: function(list, val) {
-			var self = this, grepCallback = function(product, i) {
+			var self = this, filteredList, grepCallback = function(product, i) {
 				var nameMatch = self.match(product.name, self.matcher(val)),
 					eanMatch = product.ean ? self.match(product.ean.replace(/\s/g, ''), self.matcher(val)) : false;
 				return nameMatch || eanMatch;
@@ -111,7 +120,7 @@ $(document).ready(function (){
 			
 			myJSON = $(list).get().map(function(item) { return item.product });
 			
-			var filteredList = $.grep(myJSON, grepCallback);
+			filteredList = $.grep(myJSON, grepCallback);
 			
 			if (filteredList.length) { productAnim2(); return filteredList }
 				else { createNewProduct(val); return [] };
@@ -122,7 +131,7 @@ $(document).ready(function (){
 				$.data(node, "originalObject", this.name);
 				return node;
 	    }), container = $(self.wrapper).append(listItems),
-        wrapTag = $(self.wrapper)[0].tagName;
+          wrapTag = $(self.wrapper)[0].tagName;
         
       while (container[0].tagName !== wrapTag) { container = container.children(':first'); };
       return container;
@@ -133,14 +142,15 @@ $(document).ready(function (){
 		},
 		insertText: function(item) { return item || ''; },
 		displayList: function(input, container) {
-	        var input = input.closest('td'), offset = input.offset();
-	        container
-	          .css({
-	            top: offset.top + input.outerHeight(),
-	            left: offset.left,
-	            width: input.outerWidth() - 2
-	          })
-	          .appendTo("body");
+	    var input = input.closest('td'),
+	        offset = input.offset();
+      container
+        .css({
+          top: offset.top + input.outerHeight(),
+          left: offset.left,
+          width: input.outerWidth() - 2
+        })
+        .appendTo("body");
 			container.find("li:first").addClass('active');
 	        return container;
       	},
