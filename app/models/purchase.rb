@@ -2,6 +2,9 @@ class Purchase < ActiveRecord::Base
   belongs_to :product
   belongs_to :basket
     
+  has_one :saving  
+  accepts_nested_attributes_for :saving
+    
   validates_presence_of :quantity
   validates_presence_of :unit_price_in_pence
   validates_presence_of :product_id

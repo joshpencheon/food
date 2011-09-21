@@ -4,10 +4,11 @@ class Basket < ActiveRecord::Base
   
   has_many :purchases, :extend => MergePurchasesExtension
   has_many :products, :through => :purchases, :uniq => true
+  has_many :savings,  :through => :purchases, :uniq => true
 
   has_many :bills
   accepts_nested_attributes_for :bills
-  
+    
   before_validation :set_shop_date
   before_validation :ensure_billed
   

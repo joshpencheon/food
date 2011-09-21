@@ -27,9 +27,16 @@
       </td>
     </tr>
   </table>
-  
+    
   <div style="display:none" class="multibuy-options">
-    hihihi from multibuy!
+    <% form.object.build_saving %>
+    <%= form.fields_for :saving do |saving_form| %>
+            
+      <%= Saving::SAVING_TYPES.each do |type| %>
+        <%= saving_form.radio_button :saving_type, type %>
+      <% end %>
+      
+    <% end %>
   </div>
       
 <% end %>

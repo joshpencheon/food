@@ -80,6 +80,10 @@ code {
 	text-align: center;
 }
 
+#new_purchase .multibuy-options {
+  font-size: 0.75em;
+}
+
 #new_purchase.new-product {
 	border-color: #DDA;
 	background-color: #FFC;
@@ -169,7 +173,6 @@ input[disabled] {
 .purchase-controls a {
 	color: inherit;
 }
-
 
 .purchase-controls a:hover {
 	text-decoration: underline;
