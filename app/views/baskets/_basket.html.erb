@@ -17,22 +17,18 @@
         <%= link_to 'go', purchase.product %> |
         <%= link_to 'edit' %>
       </span>
+      
+      <% if purchase.saving %>
+        <%= div_for(purchase.saving) do %>
+          <span class="purchase-quantity">&nbsp;</span>
+          <span class="product-name">
+            &nbsp;&nbsp; - <%= purchase.saving.saving_type.humanize %>
+          </span>
+          <span class="purchase-cost"><%= format_price(-purchase.saving.amount) %></span>
+        <% end %>
+      <% end %>
+      
       <div style="clear:both"></div>
-    <% end %>
-  <% end %>
-  
-  <% if basket.savings.any? %>
-    <br/>
-  <% end %>  
-    
-  <% basket.savings.each do |saving| %>
-    <%= div_for(saving) do %>
-      <span class="purchase-quantity">&nbsp;</span>
-      <span class="product-name">
-        <%= saving.purchase.product.name %><br/>
-        &nbsp;&nbsp;- <%= saving.saving_type.humanize %>
-      </span>
-      <span class="purchase-cost"><%= format_price(-saving.amount) %></span>
     <% end %>
   <% end %>
 </div>  
