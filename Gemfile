@@ -12,10 +12,10 @@ gem 'sqlite3'
 
 group :development, :test do
   gem 'factory_girl'
-  gem 'autotest-standalone'
-  gem 'autotest-rails'
-  gem 'autotest-growl'
-  gem 'autotest-fsevent'
+  # gem 'autotest-standalone'
+  # gem 'autotest-rails'
+  # gem 'autotest-growl'
+  # gem 'autotest-fsevent'
   gem 'turn'
   gem 'parallel_tests'
 end
